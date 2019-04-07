@@ -4,6 +4,9 @@
 # Directories
 .vs/
 bin/
+bin-int/
+
+# Compiled Object files
 *.slo
 *.lo
 *.o
@@ -32,3 +35,6 @@ bin/
 *.exe
 *.out
 *.app
+
+# Files
+*.user
