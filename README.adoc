@@ -1,0 +1,5 @@
+= HazelEngine
+
+C++ game engine. Developed following TheCherno's https://www.youtube.com/playlist?list=PLlrATfBNZ98dC-V-N3m0Go4deliWHPFwT[video series].
+
+Original code at https://github.com/TheCherno/Hazel[TheCherno/Hazel]
