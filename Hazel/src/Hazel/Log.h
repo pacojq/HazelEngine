@@ -26,14 +26,14 @@ namespace Hazel {
 
 // CORE LOG MACROS
 // if dist build, set them to do nothing
-#define HZ_CORE_FATAL(...)   ::Hazel::Log::GetCoreLogger()->fatal(__VA_ARGS__)
+#define HZ_CORE_FATAL(...)   ::Hazel::Log::GetCoreLogger()->critical(__VA_ARGS__)
 #define HZ_CORE_ERROR(...)   ::Hazel::Log::GetCoreLogger()->error(__VA_ARGS__)
 #define HZ_CORE_WARN(...)    ::Hazel::Log::GetCoreLogger()->warn(__VA_ARGS__)
 #define HZ_CORE_INFO(...)    ::Hazel::Log::GetCoreLogger()->info(__VA_ARGS__)
 #define HZ_CORE_TRACE(...)   ::Hazel::Log::GetCoreLogger()->trace(__VA_ARGS__)
 
 // CLIENT LOG MACROS
-#define HZ_FATAL(...)   ::Hazel::Log::GetClientLogger()->fatal(__VA_ARGS__)
+#define HZ_FATAL(...)   ::Hazel::Log::GetClientLogger()->critical(__VA_ARGS__)
 #define HZ_ERROR(...)   ::Hazel::Log::GetClientLogger()->error(__VA_ARGS__)
 #define HZ_WARN(...)    ::Hazel::Log::GetClientLogger()->warn(__VA_ARGS__)
 #define HZ_INFO(...)    ::Hazel::Log::GetClientLogger()->info(__VA_ARGS__)
