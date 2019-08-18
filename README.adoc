@@ -3,3 +3,5 @@
 C++ game engine. Developed following TheCherno's https://www.youtube.com/playlist?list=PLlrATfBNZ98dC-V-N3m0Go4deliWHPFwT[video series].
 
 Original code at https://github.com/TheCherno/Hazel[TheCherno/Hazel]
+
+Projects are generated with https://github.com/premake/premake-core/releases[Premake 5]
