@@ -10,6 +10,8 @@ workspace "Hazel"
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
+startproject "Sandbox"
+
 -- Include directories relative to root folder (solution directory)
 IncludeDir = {}
 IncludeDir["GLFW"] = "Hazel/vendor/GLFW/include"
@@ -23,8 +25,6 @@ group "Dependencies"
 	include "Hazel/vendor/ImGui"
 
 group ""
-
-startproject "Sandbox"
 	
 project "Hazel"
 	location "Hazel"
