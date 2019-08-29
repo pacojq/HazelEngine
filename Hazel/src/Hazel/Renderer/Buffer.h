@@ -80,6 +80,12 @@ namespace Hazel {
 		}
 	};
 
+
+
+
+
+
+
 	class BufferLayout
 	{
 	public:
@@ -123,6 +129,10 @@ namespace Hazel {
 
 
 
+
+
+
+
 	class VertexBuffer
 	{
 	public:
@@ -136,6 +146,13 @@ namespace Hazel {
 
 		static VertexBuffer* Create(float* vertices, uint32_t size);
 	};
+
+
+
+
+
+
+
 
 
 	class IndexBuffer

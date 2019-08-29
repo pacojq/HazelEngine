@@ -19,6 +19,9 @@ namespace Hazel {
 		case RendererAPI::OpenGL:
 			return new OpenGLVertexBuffer(vertices, size);
 		}
+
+		HZ_CORE_ASSERT(false, "Unknown RendererAPI!");
+		return nullptr;
 	}
 
 	IndexBuffer* IndexBuffer::Create(uint32_t* indices, uint32_t count)
@@ -32,6 +35,9 @@ namespace Hazel {
 		case RendererAPI::OpenGL:
 			return new OpenGLIndexBuffer(indices, count);
 		}
+
+		HZ_CORE_ASSERT(false, "Unknown RendererAPI!");
+		return nullptr;
 	}
 
 }
