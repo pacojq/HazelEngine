@@ -2,24 +2,19 @@
 
 #include "Core.h"
 
+#include "Window.h"
+
 #include "Hazel/LayerStack.h"
 #include "Hazel/Events/Event.h"
 #include "Hazel/Events/ApplicationEvent.h"
 
-#include "Window.h"
-
 #include "ImGui/ImGuiLayer.h"
 
-#include "Renderer/Shader.h"
-#include "Renderer/Buffer.h"
-#include "Renderer/VertexArray.h"
-
-#include "Renderer/OrthographicCamera.h"
 
 namespace Hazel {
 
 
-	class HAZEL_API Application
+	class Application
 	{
 	public:
 		Application();
@@ -43,13 +38,6 @@ namespace Hazel {
 		bool m_Running = true;
 		LayerStack m_LayerStack;
 
-		std::shared_ptr<Shader> m_Shader;
-		std::shared_ptr<VertexArray> m_VertexArray;
-
-		std::shared_ptr<VertexArray> m_SquareVertexArray;
-		std::shared_ptr<Shader> m_BlueShader;
-
-		OrthographicCamera m_Camera;
 
 	private:
 		static Application* s_Instance;
