@@ -128,11 +128,32 @@ namespace Hazel {
 
 
 
+	/*
+		A vertex buffer is used to store the vertices of a mesh.
+		They can be ordered using a given BufferLayout.
+
+		For example, a "hello-world" triangle would be like:
 
 
+				float vertices[3 * 7] = {
+				   -0.5f, -0.5f, 0.0f,		0.8f, 0.0f, 0.2f, 1.0f,     // First vertex
+					0.5f, -0.5f, 0.0f,		0.2f, 0.3f, 0.8f, 1.0f,     // Second vertex
+					0.0f,  0.5f, 0.0f,		0.8f, 0.8f, 0.2f, 1.0f,     // Third vertex
+				};
+
+				std::shared_ptr<Hazel::VertexBuffer> vertexBuffer;
+				vertexBuffer.reset(Hazel::VertexBuffer::Create(vertices, sizeof(vertices)));
+
+				Hazel::BufferLayout layout = {
+					{ Hazel::ShaderDataType::Float3, "a_Position" },
+					{ Hazel::ShaderDataType::Float4, "a_Color" }
+				};
+				vertexBuffer->SetLayout(layout);
 
 
-
+		We define a layout in which, for each vertex, we have a Float3 indicating
+		its position and a Float4 storing its color.
+	*/
 	class VertexBuffer
 	{
 	public:
