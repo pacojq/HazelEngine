@@ -109,7 +109,7 @@ public:
 
 			void main()
 			{
-				o_Color = vec4((v_Position + 1f) * .5f, 1.0);
+				o_Color = vec4((v_Position + 1.0) * 0.5, 1.0);
 				o_Color = v_Color;
 			}
 		)";

@@ -1,6 +1,9 @@
 #pragma once
 
-// From glfw3.h
+/*
+	Key codes for Hazel.
+	Taken from glfw3.h key codes.
+*/
 
 /* Printable keys */
 #define HZ_KEY_SPACE              32

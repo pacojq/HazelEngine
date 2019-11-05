@@ -1,6 +1,9 @@
 #pragma once
 
-// From glfw3.h
+/*
+	Mouse button codes for Hazel.
+	Taken from glfw3.h key codes.
+*/
 
 #define HZ_MOUSE_BUTTON_1         0
 #define HZ_MOUSE_BUTTON_2         1

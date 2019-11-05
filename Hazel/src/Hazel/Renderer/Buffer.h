@@ -1,5 +1,45 @@
 #pragma once
 
+/*
+	A vertex buffer is used to store the vertices of a mesh.
+	They can be ordered using a given BufferLayout.
+
+	For example, a "hello-world" triangle would be like:
+
+
+			float vertices[3 * 7] = {
+				-0.5f, -0.5f, 0.0f,		0.8f, 0.0f, 0.2f, 1.0f,     // First vertex
+				0.5f, -0.5f, 0.0f,		0.2f, 0.3f, 0.8f, 1.0f,     // Second vertex
+				0.0f,  0.5f, 0.0f,		0.8f, 0.8f, 0.2f, 1.0f,     // Third vertex
+			};
+
+			std::shared_ptr<Hazel::VertexBuffer> vertexBuffer;
+			vertexBuffer.reset(Hazel::VertexBuffer::Create(vertices, sizeof(vertices)));
+
+			Hazel::BufferLayout layout = {
+				{ Hazel::ShaderDataType::Float3, "a_Position" },
+				{ Hazel::ShaderDataType::Float4, "a_Color" }
+			};
+			vertexBuffer->SetLayout(layout);
+
+
+	We define a layout in which, for each vertex, we have a Float3 indicating
+	its position and a Float4 storing its color.
+
+	After having the vertices ready, we can go and set up the incides in the IndexBuffer:
+
+
+			uint32_t indices[3] = { 0, 1, 2 };
+			std::shared_ptr<Hazel::IndexBuffer> indexBuffer;
+			indexBuffer.reset(Hazel::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
+
+
+	And finally we can put them both together inside the VertexArray:
+
+			m_VertexArray.reset(Hazel::VertexArray::Create());
+			m_VertexArray->AddVertexBuffer(vertexBuffer);
+			m_VertexArray->SetIndexBuffer(indexBuffer);
+*/
 namespace Hazel {
 
 
@@ -83,9 +123,10 @@ namespace Hazel {
 
 
 
-
-
-
+	/*
+		Determines how the data inside the VertexBuffer is structured.
+		For each vertex, we will have one or many BufferElements.
+	*/
 	class BufferLayout
 	{
 	public:
@@ -128,32 +169,6 @@ namespace Hazel {
 
 
 
-	/*
-		A vertex buffer is used to store the vertices of a mesh.
-		They can be ordered using a given BufferLayout.
-
-		For example, a "hello-world" triangle would be like:
-
-
-				float vertices[3 * 7] = {
-				   -0.5f, -0.5f, 0.0f,		0.8f, 0.0f, 0.2f, 1.0f,     // First vertex
-					0.5f, -0.5f, 0.0f,		0.2f, 0.3f, 0.8f, 1.0f,     // Second vertex
-					0.0f,  0.5f, 0.0f,		0.8f, 0.8f, 0.2f, 1.0f,     // Third vertex
-				};
-
-				std::shared_ptr<Hazel::VertexBuffer> vertexBuffer;
-				vertexBuffer.reset(Hazel::VertexBuffer::Create(vertices, sizeof(vertices)));
-
-				Hazel::BufferLayout layout = {
-					{ Hazel::ShaderDataType::Float3, "a_Position" },
-					{ Hazel::ShaderDataType::Float4, "a_Color" }
-				};
-				vertexBuffer->SetLayout(layout);
-
-
-		We define a layout in which, for each vertex, we have a Float3 indicating
-		its position and a Float4 storing its color.
-	*/
 	class VertexBuffer
 	{
 	public:
@@ -167,9 +182,6 @@ namespace Hazel {
 
 		static VertexBuffer* Create(float* vertices, uint32_t size);
 	};
-
-
-
 
 
 

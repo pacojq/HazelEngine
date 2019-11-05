@@ -1,5 +1,11 @@
 #pragma once
 
+/*
+	Main function.
+	Entry point of the application.
+*/
+
+
 #ifdef HZ_PLATFORM_WINDOWS
 
 extern Hazel::Application* Hazel::CreateApplication();
