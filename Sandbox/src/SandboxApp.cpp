@@ -26,7 +26,7 @@ public:
 			0.0f,  0.5f, 0.0f,		0.8f, 0.8f, 0.2f, 1.0f,
 		};
 
-		std::shared_ptr<Hazel::VertexBuffer> vertexBuffer;
+		Hazel::Ref<Hazel::VertexBuffer> vertexBuffer;
 		vertexBuffer.reset(Hazel::VertexBuffer::Create(vertices, sizeof(vertices)));
 
 		Hazel::BufferLayout layout = {
@@ -38,7 +38,7 @@ public:
 
 
 		uint32_t indices[3] = { 0, 1, 2 };
-		std::shared_ptr<Hazel::IndexBuffer> indexBuffer;
+		Hazel::Ref<Hazel::IndexBuffer> indexBuffer;
 		indexBuffer.reset(Hazel::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
 		m_VertexArray->SetIndexBuffer(indexBuffer);
 
@@ -52,22 +52,23 @@ public:
 
 		m_SquareVertexArray.reset(Hazel::VertexArray::Create());
 
-		float squareVertices[3 * 4] = {
-		   -0.5f, -0.5f, 0.0f,
-		   -0.5f,  0.5f, 0.0f,
-			0.5f,  0.5f, 0.0f,
-			0.5f, -0.5f, 0.0f
+		float squareVertices[5 * 4] = {
+		   -0.5f, -0.5f, 0.0f,   0.0f, 0.0f,
+		    0.5f, -0.5f, 0.0f,   1.0f, 0.0f,
+			0.5f,  0.5f, 0.0f,   1.0f, 1.0f,
+		   -0.5f,  0.5f, 0.0f,   0.0f, 1.0f
 		};
 
-		std::shared_ptr<Hazel::VertexBuffer> squareVB;
+		Hazel::Ref<Hazel::VertexBuffer> squareVB;
 		squareVB.reset(Hazel::VertexBuffer::Create(squareVertices, sizeof(squareVertices)));
 		squareVB->SetLayout({
-			{ Hazel::ShaderDataType::Float3, "a_Position" }
+			{ Hazel::ShaderDataType::Float3, "a_Position" },
+			{ Hazel::ShaderDataType::Float2, "a_TexCoord" }
 		});
 		m_SquareVertexArray->AddVertexBuffer(squareVB);
 
 		uint32_t squareIndices[6] = { 0, 1, 2, 2, 3, 0 };
-		std::shared_ptr<Hazel::IndexBuffer> squareIB;
+		Hazel::Ref<Hazel::IndexBuffer> squareIB;
 		squareIB.reset(Hazel::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t)));
 		m_SquareVertexArray->SetIndexBuffer(squareIB);
 
@@ -155,6 +156,50 @@ public:
 		m_FlatColorShader.reset(Hazel::Shader::Create(flatColorVertexSrc, flatColorFragmentSrc));
 
 
+
+
+
+		std::string textureVertexSrc = R"(
+			#version 330 core
+			
+			layout(location = 0) in vec3 a_Position;
+			layout(location = 1) in vec2 a_TexCoord;
+
+			uniform mat4 u_ViewProjection;
+			uniform mat4 u_Transform;
+
+			out vec2 v_TexCoord;
+
+			void main()
+			{
+				v_TexCoord = a_TexCoord;
+				gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);
+			}
+		)";
+
+		std::string textureFragmentSrc = R"(
+			#version 330 core
+			
+			layout(location = 0) out vec4 color;
+
+			in vec2 v_TexCoord;
+
+			uniform sampler2D u_Texture;
+
+			void main()
+			{
+				color = texture(u_Texture, v_TexCoord);
+			}
+		)";
+
+		m_TextureShader.reset(Hazel::Shader::Create(textureVertexSrc, textureFragmentSrc));
+
+
+		m_Texture = Hazel::Texture2D::Create("assets/textures/Checkerboard.png");
+
+		std::dynamic_pointer_cast<Hazel::OpenGLShader>(m_TextureShader)->Bind();
+		std::dynamic_pointer_cast<Hazel::OpenGLShader>(m_TextureShader)->UploadUniformInt("u_Texture", 0);
+
 	}
 
 	void OnUpdate(Hazel::Timestep ts) override
@@ -199,15 +244,6 @@ public:
 		std::dynamic_pointer_cast<Hazel::OpenGLShader>(m_FlatColorShader)->Bind();
 		std::dynamic_pointer_cast<Hazel::OpenGLShader>(m_FlatColorShader)->UploadUniformFloat3("u_Color", m_SquareColor);
 
-		/*
-		Hazel::MaterialRef material = new Hazel::Material(m_FlatColorShader);
-		Hazel::MaterialInstanceRef mi = new Hazel::MaterialInstance(material);
-
-		mi->Set("u_Color", redColor);
-		mi->SetTexture("u_Albedo", texture);
-		squareMesh->SetMaterial(mi);
-		*/
-
 		for (int i = 0; i < 20; i++)
 		{
 			for (int j = 0; j < 20; j++)
@@ -218,7 +254,12 @@ public:
 			}
 		}
 
-		Hazel::Renderer::Submit(m_Shader, m_VertexArray);
+
+		m_Texture->Bind(0);
+		Hazel::Renderer::Submit(m_TextureShader, m_SquareVertexArray, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+
+		// Triangle
+		//Hazel::Renderer::Submit(m_Shader, m_VertexArray);
 
 
 
@@ -234,37 +275,20 @@ public:
 
 	void OnEvent(Hazel::Event& event) override
 	{
-		//Hazel::EventDispatcher dispatcher(event);
-		//dispatcher.Dispatch<Hazel::KeyPressedEvent>(HZ_BIND_EVENT_FN(ExampleLayer::OnKeyPressedEvent));
-	}
-
-	/*
-	bool OnKeyPressedEvent(Hazel::KeyPressedEvent& event)
-	{
-		if (event.GetKeyCode() == HZ_KEY_LEFT)
-			m_CameraPosition.x -= m_CameraMoveSpeed;
 		
-		if (event.GetKeyCode() == HZ_KEY_RIGHT)
-			m_CameraPosition.x += m_CameraMoveSpeed;
-		
-		if (event.GetKeyCode() == HZ_KEY_UP)
-			m_CameraPosition.y += m_CameraMoveSpeed;
-
-		if (event.GetKeyCode() == HZ_KEY_DOWN)
-			m_CameraPosition.y -= m_CameraMoveSpeed;
-
-		return false;
 	}
-	*/
 
 
 private:
-	std::shared_ptr<Hazel::Shader> m_Shader;
-	std::shared_ptr<Hazel::VertexArray> m_VertexArray;
+	Hazel::Ref<Hazel::Shader> m_Shader;
+	Hazel::Ref<Hazel::VertexArray> m_VertexArray;
 
-	std::shared_ptr<Hazel::VertexArray> m_SquareVertexArray;
-	std::shared_ptr<Hazel::Shader> m_FlatColorShader;
+	Hazel::Ref<Hazel::VertexArray> m_SquareVertexArray;
+	Hazel::Ref<Hazel::Shader> m_FlatColorShader;
 
+	Hazel::Ref<Hazel::Shader> m_TextureShader;
+
+	Hazel::Ref<Hazel::Texture2D> m_Texture;
 
 	Hazel::OrthographicCamera m_Camera;
 

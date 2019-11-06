@@ -6,6 +6,39 @@
 namespace Hazel {
 
 
+	/*
+		Example of an event dispatcher in a Layer:
+
+			void OnEvent(Hazel::Event& event) override
+			{
+				Hazel::EventDispatcher dispatcher(event);
+				dispatcher.Dispatch<Hazel::KeyPressedEvent>(HZ_BIND_EVENT_FN(ExampleLayer::OnKeyPressedEvent));
+			}
+
+			bool OnKeyPressedEvent(Hazel::KeyPressedEvent& event)
+			{
+				if (event.GetKeyCode() == HZ_KEY_LEFT)
+					m_CameraPosition.x -= m_CameraMoveSpeed;
+		
+				if (event.GetKeyCode() == HZ_KEY_RIGHT)
+					m_CameraPosition.x += m_CameraMoveSpeed;
+		
+				if (event.GetKeyCode() == HZ_KEY_UP)
+					m_CameraPosition.y += m_CameraMoveSpeed;
+
+				if (event.GetKeyCode() == HZ_KEY_DOWN)
+					m_CameraPosition.y -= m_CameraMoveSpeed;
+
+				return false;
+			}
+	*/
+
+
+
+
+
+
+
 	enum class EventType
 	{
 		None = 0,

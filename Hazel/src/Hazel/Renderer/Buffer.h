@@ -13,7 +13,7 @@
 				0.0f,  0.5f, 0.0f,		0.8f, 0.8f, 0.2f, 1.0f,     // Third vertex
 			};
 
-			std::shared_ptr<Hazel::VertexBuffer> vertexBuffer;
+			Ref<Hazel::VertexBuffer> vertexBuffer;
 			vertexBuffer.reset(Hazel::VertexBuffer::Create(vertices, sizeof(vertices)));
 
 			Hazel::BufferLayout layout = {
@@ -30,7 +30,7 @@
 
 
 			uint32_t indices[3] = { 0, 1, 2 };
-			std::shared_ptr<Hazel::IndexBuffer> indexBuffer;
+			Ref<Hazel::IndexBuffer> indexBuffer;
 			indexBuffer.reset(Hazel::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
 
 
