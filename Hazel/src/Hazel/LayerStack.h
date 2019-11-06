@@ -24,7 +24,7 @@ namespace Hazel {
 
 	private:
 		std::vector<Layer*> m_Layers;
-		unsigned int m_layerInsertIndex = 0;
+		unsigned int m_LayerInsertIndex = 0;
 	};
 
 
