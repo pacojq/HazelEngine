@@ -192,7 +192,7 @@ public:
 			}
 		)";
 
-		m_TextureShader.reset(Hazel::Shader::Create(textureVertexSrc, textureFragmentSrc));
+		m_TextureShader.reset(Hazel::Shader::Create("assets/shaders/Texture.glsl"));
 
 
 		m_Texture = Hazel::Texture2D::Create("assets/textures/Checkerboard.png");
