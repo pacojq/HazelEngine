@@ -264,6 +264,8 @@ public:
 		ImGui::Begin("Settings");
 		ImGui::ColorEdit3("Square Color", glm::value_ptr(m_SquareColor));
 		ImGui::End();
+
+		ImGui::ShowDemoWindow();
 	}
 
 	void OnEvent(Hazel::Event& e) override
