@@ -2,9 +2,9 @@
 
 #include "hzpch.h"
 
-#include "Hazel/Core.h"
+#include "Hazel/Core/Core.h"
 #include "Hazel/Events/Event.h"
-#include "Hazel/Log.h"
+#include "Hazel/Core/Log.h"
 
 namespace Hazel {
 
