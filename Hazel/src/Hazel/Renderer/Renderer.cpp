@@ -1,6 +1,7 @@
 #include "hzpch.h"
 #include "Renderer.h"
 
+#include "Renderer2D.h"
 #include "Platform/OpenGL/OpenGLShader.h"
 
 namespace Hazel {
@@ -11,8 +12,14 @@ namespace Hazel {
 	void Renderer::Init()
 	{
 		RenderCommand::Init();
+		Renderer2D::Init();
 	}
-
+	/*
+	void Renderer::Shutdown()
+	{
+		RenderCommand::Init();
+		Renderer2D::Init();
+	}*/
 
 	void Renderer::OnWindowResize(uint32_t width, uint32_t height)
 	{
@@ -35,9 +42,7 @@ namespace Hazel {
 		shader->Bind();
 		std::dynamic_pointer_cast<OpenGLShader>(shader)->UploadUniformMat4("u_ViewProjection", m_SceneData->ViewProjectionMatrix);
 		std::dynamic_pointer_cast<OpenGLShader>(shader)->UploadUniformMat4("u_Transform", transform);
-
-		//mi.Bind();
-
+	
 		vertexArray->Bind();
 		RenderCommand::DrawIndexed(vertexArray);
 	}
