@@ -4,6 +4,9 @@
 
 namespace Hazel {
 
+	/*
+		Hazel's 2D renderer.
+	*/
 	class Renderer2D
 	{
 	public:

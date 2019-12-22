@@ -6,6 +6,7 @@ namespace Hazel {
 
 	/*
 		RendererCommand is just a layer that abstracts the actual RendererAPI.
+		Different Render Commands will be called by Hazel's Renderers.
 	*/
 	class RenderCommand
 	{

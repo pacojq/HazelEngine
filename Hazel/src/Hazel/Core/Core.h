@@ -89,6 +89,10 @@
 
 namespace Hazel {
 
+	/*
+		Custom memory handlers to hide unique and shared pointers.
+	*/
+
 	template<typename T>
 	using Scope = std::unique_ptr<T>;
 	template<typename T, typename ... Args>

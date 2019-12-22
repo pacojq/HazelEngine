@@ -8,6 +8,9 @@
 
 namespace Hazel {
 
+	/*
+		Struct holding data about the different window properties.
+	*/
 	struct WindowProps
 	{
 		std::string Title;
@@ -23,7 +26,9 @@ namespace Hazel {
 		}
 	};
 
-	// Interface representing a desktop system based window
+	/*
+		Interface representing a desktop system based window
+	*/
 	class HAZEL_API Window
 	{
 	public:

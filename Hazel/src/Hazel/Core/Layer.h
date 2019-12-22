@@ -6,6 +6,12 @@
 
 namespace Hazel {
 
+	/*
+		Hazel is a layer-based engine.
+		Layers can be attached to and detached from the
+		main loop and execute OnUpdate and OnEvent functions.
+	*/
+
 	class HAZEL_API Layer
 	{
 	public:

@@ -7,7 +7,9 @@
 
 namespace Hazel {
 
-
+	/*
+		The Layer Stack is where Layers live inside our application.
+	*/
 	class HAZEL_API LayerStack
 	{
 	public:

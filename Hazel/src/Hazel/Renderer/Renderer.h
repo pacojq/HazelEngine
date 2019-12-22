@@ -7,7 +7,9 @@
 
 namespace Hazel {
 
-	
+	/*
+		Hazel's 3D renderer.
+	*/
 	class Renderer
 	{
 	public:

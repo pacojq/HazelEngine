@@ -7,6 +7,19 @@
 
 namespace Hazel {
 
+	/*
+		The renderer API.
+
+		Everything any renderer in Hazel can do will go here, so
+		it can be called by Render Commands.
+
+		Implementation will go appart, living in the specific
+		Platform folder. For example, if we're using OpenGL our
+		Renderer API implementation will go inside:
+			
+			src/Platform/OpenGL/OpenGLRendererAPI.h
+			src/Platform/OpenGL/OpenGLRendererAPI.cpp
+	*/
 	class RendererAPI
 	{
 	public:

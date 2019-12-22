@@ -50,7 +50,7 @@ namespace Hazel {
 		static Application* s_Instance;
 	};
 
-	// To be defined in the client
+	// To be defined in the client application
 	Application* CreateApplication();
 
 }

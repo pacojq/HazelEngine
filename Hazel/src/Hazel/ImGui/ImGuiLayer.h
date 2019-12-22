@@ -8,6 +8,9 @@
 
 namespace Hazel {
 
+	/*
+		Specific layer for ImGui rendering.
+	*/
 	class HAZEL_API ImGuiLayer : public Layer
 	{
 	public:
