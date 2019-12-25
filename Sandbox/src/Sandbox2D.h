@@ -24,5 +24,6 @@ private:
 	Hazel::Ref<Hazel::Shader> m_FlatColorShader;
 
 	glm::vec4 m_SquareColor;
+	Hazel::Ref<Hazel::Texture2D> m_Texture;
 
 };
