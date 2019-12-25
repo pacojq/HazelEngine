@@ -41,6 +41,7 @@ namespace Hazel {
 		ImGuiLayer* m_ImGuiLayer;
 
 		bool m_Running = true;
+		bool m_Paused = false; // Whether the game is running in a freezed state
 		bool m_Minimized = false;
 
 		LayerStack m_LayerStack;

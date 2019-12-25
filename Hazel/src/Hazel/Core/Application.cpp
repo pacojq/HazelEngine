@@ -69,7 +69,7 @@ namespace Hazel {
 			m_LastFrameTime = time;
 
 
-			if (!m_Minimized)
+			if (!m_Minimized && !m_Paused)
 			{
 				for (Layer* layer : m_LayerStack)
 					layer->OnUpdate(timestep);
