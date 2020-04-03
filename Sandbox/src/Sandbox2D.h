@@ -23,7 +23,10 @@ private:
 	Hazel::Ref<Hazel::VertexArray> m_SquareVertexArray;
 	Hazel::Ref<Hazel::Shader> m_FlatColorShader;
 
-	glm::vec4 m_SquareColor;
+	float m_TilingFactor;
+	float m_Rotation;
+	glm::vec4 m_FirstColor;
+	glm::vec4 m_SecondColor;
 	Hazel::Ref<Hazel::Texture2D> m_Texture;
 
 };
