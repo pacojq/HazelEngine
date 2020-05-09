@@ -6,57 +6,6 @@
 
 
 
-/*
-#include <chrono>
-
-
-class Timer
-{
-public:
-	Timer(const char* name)
-		: m_Name(name), m_Stopped(false)
-	{
-		m_StartTimepoint = std::chrono::high_resolution_clock::now();
-	}
-
-	~Timer()
-	{
-		if (!m_Stopped)
-			Stop();
-	}
-
-	void Stop()
-	{
-		auto endTimepoint = std::chrono::high_resolution_clock::now();
-
-		long long start = std::chrono::time_point_cast<std::chrono::microseconds>(m_StartTimepoint).time_since_epoch().count();
-		long long end = std::chrono::time_point_cast<std::chrono::microseconds>(endTimepoint).time_since_epoch().count();
-
-		m_Stopped = true;
-		
-		float duration = (end - start) * 0.001f; // Microseconds to milliseconds
-
-		std::cout << m_Name << ": " << duration << "ms" << std::endl;
-	}
-
-private:
-	const char* m_Name;
-	std::chrono::time_point<std::chrono::steady_clock> m_StartTimepoint;
-	bool m_Stopped;
-};
-*/
-
-
-
-
-
-
-
-
-
-
-
-
 Sandbox2D::Sandbox2D()
 	: Layer("Sandbox 2D"), 
 	m_CameraController(1280.0f / 720.0f, true), 
@@ -90,16 +39,30 @@ void Sandbox2D::OnUpdate(Hazel::Timestep ts)
 
 	// RENDER
 
+	Hazel::Renderer2D::ResetStats();
+
 	Hazel::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
 	Hazel::RenderCommand::Clear();
 
 	Hazel::Renderer2D::BeginScene(m_CameraController.GetCamera());
 
 	//Hazel::Renderer2D::DrawRotatedQuad({ -0.5f, 0.5f }, { 0.8f, 0.8f }, m_Rotation, m_SecondColor);
-	Hazel::Renderer2D::DrawQuad({ -0.5f, 0.5f }, { 0.8f, 0.8f }, m_SecondColor);
+	Hazel::Renderer2D::DrawQuad({ -0.5f, 0.5f, 1.0f }, { 0.8f, 0.8f }, m_SecondColor);
 	Hazel::Renderer2D::DrawQuad({ 0.25f, -0.25f }, { 1.2f, 1.2f }, m_FirstColor);
-	Hazel::Renderer2D::DrawQuad({ -5.0f, -5.0f, -0.1f }, { 10.0f, 10.0f }, m_Texture, m_TilingFactor, m_SecondColor);
-	Hazel::Renderer2D::DrawQuad({ -1.0f, -1.0f, 0.0f }, { 2.0f, 2.0f }, m_Texture, 0.5f);
+	Hazel::Renderer2D::DrawQuad({ 0.0f, 0.0f, -0.1f }, { 20.0f, 20.0f }, m_Texture, m_TilingFactor, {1.0f, 1.0f, 1.0f, 1.0f});
+	Hazel::Renderer2D::DrawRotatedQuad({ -2.0f, 0.0f, 0.0f }, { 2.0f, 2.0f }, m_Rotation, m_Texture, 0.5f);
+
+	//Hazel::Renderer2D::EndScene();
+	//Hazel::Renderer2D::BeginScene(m_CameraController.GetCamera());
+
+	for (float y = -5.0f; y < 5.0f; y += 0.5f)
+	{
+		for (float x= -5.0f; x < 5.0f; x += 0.5f)
+		{
+			glm::vec4 color = { (x + 5.0f) / 10.0f, (y + 5.0f) / 10.0f, 1.0f, 0.5f };
+			Hazel::Renderer2D::DrawQuad({ x, y }, { 0.45f, 0.45f }, color);
+		}
+	}
 
 	Hazel::Renderer2D::EndScene();
 
@@ -114,6 +77,16 @@ void Sandbox2D::OnImGuiRender()
 	ImGui::DragFloat("Rotation", &m_Rotation, 0.1f);
 	ImGui::ColorEdit4("First Color", glm::value_ptr(m_FirstColor));
 	ImGui::ColorEdit4("Second Color", glm::value_ptr(m_SecondColor));
+	ImGui::End();
+
+
+	auto stats = Hazel::Renderer2D::GetStats();
+	
+	ImGui::Begin("Stats");
+	ImGui::Text("Draw Calls: %d", stats.DrawCalls);
+	ImGui::Text("Quads: %d", stats.QuadCount);
+	ImGui::Text("Vertices: %d", stats.GetTotalVertexCount());
+	ImGui::Text("Indices: %d", stats.GetTotalIndexCount());
 	ImGui::End();
 
 	//ImGui::ShowDemoWindow();
