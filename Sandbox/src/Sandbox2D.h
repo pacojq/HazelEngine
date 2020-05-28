@@ -2,6 +2,8 @@
 
 #include "Hazel.h"
 
+#include "Particle.h"
+
 class Sandbox2D : public Hazel::Layer
 {
 public:
@@ -28,5 +30,8 @@ private:
 	glm::vec4 m_FirstColor;
 	glm::vec4 m_SecondColor;
 	Hazel::Ref<Hazel::Texture2D> m_Texture;
+
+	ParticleProps m_Particle;
+	ParticleSystem m_ParticleSystem;
 
 };
