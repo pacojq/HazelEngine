@@ -22,8 +22,8 @@ namespace Hazel {
 		};
 		
 		glm::vec2 max = {
-			(padding.x + (coords.x + 1) * (spriteSize.x + offset.x)) / texture->GetWidth(),
-			(padding.y + (coords.y + 1) * (spriteSize.y + offset.y)) / texture->GetHeight()
+			(padding.x + (coords.x + 1) * (spriteSize.x + offset.x) - offset.x) / texture->GetWidth(),
+			(padding.y + (coords.y + 1) * (spriteSize.y + offset.y) - offset.y) / texture->GetHeight()
 		};
 
 		return CreateRef<SubTexture2D>(texture, min, max);
